@@ -1,0 +1,1 @@
+sudo docker run -ti --rm --net=host -e DISPLAY=$DISPLAY -v /home/ec2-user/.Xauthority:/home/neo/.Xauthority --name relion1 fredhutch/ls2-relion:2.1 /usr/local/bin/relion
