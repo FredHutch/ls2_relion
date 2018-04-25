@@ -1,27 +1,37 @@
 #!/bin/bash
 
+# you may need to use sudo if you user is not in the 'docker' group
+sudo=""
+#sudo="sudo"
+
+# docker executable
+docker_cmd="nvidia-docker"
+
 # usage: run_relion <projectname/dir>
 
+# ensure the project directory exists
 proj=$(realpath $1)
-
 mkdir $proj 2> /dev/null
 
+# conatiner to run
 relion_ver="2.1"
 relion_container_img="fredhutch/ls2-relion:$relion_ver"
 
 function create_container() {
-  # add the user
-  nvidia-docker run \
+  # add the user to a container
+  $sudo $docker_cmd run \
     --user root \
     --name relion-$USER \
     $relion_container_img \
     adduser --quiet --disabled-password --uid $UID --gecos "" $USER
-  nvidia-docker commit relion-$USER $USER/relion-$relion_ver
-  nvidia-docker rm relion-$USER
+  # commit the container to a new image to be run later
+  $sudo $docker_cmd commit relion-$USER $USER/relion-$relion_ver
+  # delete the container (user will run the new image in the future)
+  $sudo $docker_cmd rm relion-$USER
 }
 
 function start_container() {
-  nvidia-docker run -ti --rm \
+  $sudo $docker_cmd run -ti --rm \
     --net=host \
     -e DISPLAY=$DISPLAY \
     -e LD_LIBRARY_PATH=/usr/local/lib \
