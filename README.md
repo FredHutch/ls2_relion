@@ -18,7 +18,9 @@ The docker version is set to `nvidia-docker` by default, to help ease the use of
 
 `start_contianer.sh` is meant to automated starting the Docker container on a host - it is built for `nvidia-docker` right now so may need to be changed if you are not using `nvidia-docker`
 
-`run_relion` is meant to help users simply run Relion - it can be run with `ssh -t` remotely
+`run_relion` is meant to help users simply run Relion - it can be placed on the host running the Relion container and run with `ssh -t`
+
+`start_relion` is meant to be modified and given to users along with an ssh key and is used to run `run_relion` remotely - it is tested on linux and macOS
 
 ## AWS Setup
 We are running this container on a p2.xlarge AWS instance using the Deep Learning with Source AMI and nvidia-docker.
