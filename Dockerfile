@@ -1,9 +1,8 @@
-FROM nvidia/cuda:8.0-devel
-
-ENV DEBIAN_FRONTEND noninteractive
+FROM nvidia/cuda:9.1-devel-ubuntu16.04
 
 # OS packages for building
-RUN apt-get update && apt-get install -y \
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get update -y && apt-get install -y \
     curl \
     build-essential \
     cmake \
