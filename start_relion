@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# change per instance
+relion_host="relion-pancera.fredhutch.org"
+relion_key="relion-pancera.pem"
+run_cmd="/usr/local/bin/run_relion"
+default_proj="relion_tutorial"
+
+# ask user for project
+echo -n "Enter project name [$default_proj]: "
+read proj
+
+if [ -z "$proj" ]
+then
+  proj="$default_proj"
+fi
+
+ssh -i $relion_key -t bmcgough@$relion_host $run_cmd $proj
